@@ -12,11 +12,8 @@ $(document).ready(function () {
             e.preventDefault();
             $("#searchInput").toggleClass("expanded-search-bar");
         });
-        // replace inner html for nex button(carousel)
-        $(".tns-controls button:nth-child(2)").html('<i class="fa fa-chevron-left" aria-hidden="true"></i>');
-        // ============
 
-        // scrolling animations start
+        // scrolling animations start (NOT SUPPORTED IN IE)
 
         const header = document.querySelector("header");
         const sectionOne = document.querySelector(".fading-container");
@@ -65,5 +62,100 @@ $(document).ready(function () {
         });
 
         // scrolling animations end
+
+        //initialize tiny slider
+        tns({
+            container: "#rewind",
+            items: 1.1,
+            rewind: true,
+            swipeAngle: false,
+            speed: 400,
+            mouseDrag: true,
+            arrowKeys: true,
+            navPosition: "bottom",
+
+            responsive: {
+                350: {
+                    items: 1.1,
+                },
+                390: {
+                    items: 1.5,
+                },
+                500: {
+                    items: 2,
+                },
+                655: {
+                    items: 2.5,
+                },
+                740: {
+                    items: 3,
+                },
+                992: {
+                    items: 3.5,
+                },
+                1050: {
+                    items: 4.5,
+                },
+            },
+        });
+
+        tns({
+            container: "#summerMoodSlider",
+            items: 1,
+            swipeAngle: false,
+            speed: 400,
+            mouseDrag: true,
+            arrowKeys: false,
+            navPosition: "bottom",
+            autoplay: true,
+            controls: false,
+            nav: false,
+            // autoplayButton: true,
+        });
+        // replace inner html for nex button(carousel)
+        $(".tns-controls button:nth-child(2)").html('<i class="fa fa-chevron-left" aria-hidden="true"></i>');
+        //initialize tiny slider end
+
+        // products switch tabs
+
+        const productsButtons = $("#productsButtons");
+        const productItems = $(".product-items");
+
+        // switch active tabs fn
+        const switchTab = (btn) => {
+            productItems.each((i, item) => {
+                $(item).fadeOut();
+            });
+            $(`[data-trigger="${btn}"]`).fadeIn();
+        };
+
+        // turn on active tab on load
+        $(productsButtons)
+            .children()
+            .each(function () {
+                if ($(this)[0].classList.contains("active")) {
+                    switchTab($(this)[0].id);
+                    console.log("=");
+                } else {
+                    console.log("-");
+                }
+            });
+
+        // switch tabs on click
+        productsButtons.click(function (e) {
+            e.preventDefault();
+            $(productsButtons)
+                .children()
+                .each(function () {
+                    if ($(this)[0].id == e.target.id) {
+                        switchTab($(this)[0].id);
+                        $(e.target).addClass("active");
+                    } else {
+                        $($(this)[0]).removeClass("active");
+                    }
+                });
+        });
+
+        // ============
     })(jQuery);
 });

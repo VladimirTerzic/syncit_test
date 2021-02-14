@@ -9,6 +9,7 @@
 
 html {
     font-size: 62.5%; /* 10px */
+    overflow-x: hidden;
 }
 
 @font-face {
@@ -31,6 +32,7 @@ html {
 body {
     font-family: poppins-light;
     position: relative;
+    overflow-x: hidden;
 }
 
 a {
@@ -80,6 +82,18 @@ a:hover {
 .standard-paragraph {
     font-size: 1.6rem;
     color: #9b9b9b;
+}
+
+::selection {
+    color: white;
+    background: black;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-weight: 400;
 }
 /* typography end */
 
@@ -262,7 +276,7 @@ a:hover {
 .expanded-search-bar {
     padding: 0.5rem 1.5rem;
     border-radius: 15px;
-    border: 1px solid #f4f4f4 !important;
+    border: 1px solid black !important;
     width: 30rem !important;
 }
 
@@ -314,9 +328,18 @@ a:hover {
 }
 /* carousel */
 
+.summer-tiny-slider-wrap {
+    position: relative;
+}
+
+.tns-outer [data-action] {
+    display: none;
+}
+
 .slideshow {
     padding-top: 5rem;
 }
+
 
 .tartist-tiny-slider-wrap {
     margin-left: 4.5rem;
@@ -424,10 +447,7 @@ a:hover {
     height: 566px;
     flex-direction: column;
     background-position: center;
-}
-
-.clothes-cosmetics-home-section > div:hover .clothes-cosmetics-home-section-overlay {
-    height: 100%;
+    justify-content: center;
 }
 
 .clothes-cosmetics-home-section > div:hover .standard-btn {
@@ -436,15 +456,14 @@ a:hover {
 }
 
 .clothes-cosmetics-home-section-overlay {
-    background-color: white;
-    opacity: 0.68;
-    margin: auto 0;
+    background-color: rgba(255, 255, 255, 0.68);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 50%;
-    transition: height 0.4s;
+    flex-basis: 50%;
+    flex-shrink: 0;
+    transition: all 0.4s;
 }
 
 .clothes-cosmetics-home-section-overlay h3 {
@@ -452,23 +471,43 @@ a:hover {
     text-transform: uppercase;
     padding: 0 1.6rem 1.6rem 1.6rem;
     border-bottom: 1px solid black;
-    /* prevent shaking */
-    -webkit-backface-visibility: hidden;
-    -webkit-transform: translateZ(0) scale(1, 1);
-    backface-visibility: hidden;
-    transform: translateZ(0) scale(1, 1);
-    /* prevent shaking end */
 }
+
 .clothes-cosmetics-home-section-clothes,
 .clothes-cosmetics-home-section-cosmetics,
 .clothes-cosmetics-home-section-home {
     background-repeat: no-repeat;
     background-size: cover;
 }
+
 .clothes-cosmetics-home-section > div.clothes-cosmetics-home-section-clothes {
-    background-image: url(images/Layer13.png);
+    background: url(images/Layer13.png);
     background-position: top;
 }
+
+.clothes-cosmetics-home-section > div.clothes-cosmetics-home-section-clothes::before,
+.clothes-cosmetics-home-section > div.clothes-cosmetics-home-section-cosmetics::before,
+.clothes-cosmetics-home-section > div.clothes-cosmetics-home-section-home::before,
+.clothes-cosmetics-home-section > div.clothes-cosmetics-home-section-clothes::after,
+.clothes-cosmetics-home-section > div.clothes-cosmetics-home-section-cosmetics::after,
+.clothes-cosmetics-home-section > div.clothes-cosmetics-home-section-home::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    opacity: 0;
+    transition: all 1s ease-in;
+}
+
+.clothes-cosmetics-home-section > div.clothes-cosmetics-home-section-clothes:hover::before,
+.clothes-cosmetics-home-section > div.clothes-cosmetics-home-section-cosmetics:hover::before,
+.clothes-cosmetics-home-section > div.clothes-cosmetics-home-section-home:hover::before,
+.clothes-cosmetics-home-section > div.clothes-cosmetics-home-section-clothes:hover::after,
+.clothes-cosmetics-home-section > div.clothes-cosmetics-home-section-cosmetics:hover::after,
+.clothes-cosmetics-home-section > div.clothes-cosmetics-home-section-home:hover::after {
+    opacity: 0.68;
+}
+
 .clothes-cosmetics-home-section-cosmetics {
     background-image: url(images/Layer16.png);
 }
@@ -572,6 +611,7 @@ a:hover {
 .blog-content h4 {
     font-size: 2.6rem;
     padding: 2.6rem 0;
+    text-transform: uppercase;
 }
 .blog-content .standard-btn {
     margin-left: auto;
@@ -739,48 +779,47 @@ a:hover {
 .fade-in {
     opacity: 0;
     transition: opacity 0.5s ease-in;
-  }
-  
-  .fade-in.appear {
+}
+
+.fade-in.appear {
     opacity: 1;
-  }
-  
-  .from-left {
+}
+
+.from-left {
     -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
-  }
-  
-  .from-right {
+}
+
+.from-right {
     -webkit-transform: translateX(50%);
     transform: translateX(50%);
-  }
-  
-  .from-bottom {
+}
+
+.from-bottom {
     -webkit-transform: translateY(50%);
     transform: translateY(50%);
-  }
-  
-  .from-left,
-  .from-right,
-  .from-bottom {
+}
+
+.from-left,
+.from-right,
+.from-bottom {
     transition: opacity 0.5s ease-in, -webkit-transform 400ms ease-in;
     transition: opacity 0.5s ease-in, transform 400ms ease-in;
-    transition: opacity 0.5s ease-in, transform 400ms ease-in,
-      -webkit-transform 400ms ease-in;
+    transition: opacity 0.5s ease-in, transform 400ms ease-in, -webkit-transform 400ms ease-in;
     opacity: 0;
-  }
-  
-  .from-left.appear,
-  .from-right.appear,
-  .from-bottom.appear {
+}
+
+.from-left.appear,
+.from-right.appear,
+.from-bottom.appear {
     -webkit-transform: translateX(0);
     transform: translateX(0);
     -webkit-transform: translateY(0);
     transform: translateY(0);
     opacity: 1;
-  }
-  
-  /* on scroll fading and sliding effects end  */
+}
+
+/* on scroll fading and sliding effects end  */
 /* =========== media queries =========== */
 @media (max-width: 1400px) {
     /* carousel */
@@ -878,7 +917,7 @@ a:hover {
     #searchInput {
         padding: 0.6rem 1.5rem;
         border-radius: 15px;
-        border: 1px solid #f4f4f4;
+        border: 1px solid black;
         width: 65%;
         margin-bottom: 3rem;
     }
@@ -950,7 +989,7 @@ a:hover {
     }
     /* navigation end */
 
-      /* clothes-cosmetics-home-section */
+    /* clothes-cosmetics-home-section */
 
     .clothes-cosmetics-home-section {
         grid-template-columns: 1fr;
@@ -958,7 +997,7 @@ a:hover {
     /* clothes-cosmetics-home-section end */
 
     /* footer */
-    .footer-links-col{
+    .footer-links-col {
         padding-right: 4rem;
     }
     /* footer emd */
@@ -988,6 +1027,20 @@ a:hover {
 
     .nav-expand {
         height: 100vh;
+    }
+
+    .nav-expand .navigation-menu a,
+    .nav-expand .navigation-menu .dropdown {
+        font-size: 2rem;
+    }
+
+    .nav-expand .navigation-menu a,
+    .nav-expand .navigation-menu .dropdown:not(:last-child) {
+        padding-bottom: 2rem;
+    }
+
+    .navigation-social-media a {
+        font-size: 3rem;
     }
 
     .navigation-social-media {
